@@ -10,6 +10,10 @@ local hooker = {
 }
 -- this is where we store our hooks and the things that latch on to them like greedy little hellions
 
+local function pack(...)
+	return {n = select('#', ...), ...}
+end
+
 function hooker.Add( eventName, identifier, func )
 	--string, any, function
 	if hooker.hookTable[eventName]==nil then
@@ -26,7 +30,7 @@ function hooker.Call( eventName, ... )
 	else
 		local results
 		for identifier,func in hooker.hookIter(hooker.hookTable[eventName]) do
-			results = table.pack(func(...))
+			results = pack(func(...))
 			results.n = nil
 			if #results>0 then
 				-- potential problems if relying on sandwiching a nil in the return results
