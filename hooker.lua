@@ -3,7 +3,7 @@
 	https://github.com/EntranceJew/hooker
 ]]
 
-hooker = {
+local hooker = {
 	hookTable = {},
 	hookIter = pairs
 	-- override this if you want globally deterministic hook iteration
@@ -56,3 +56,5 @@ function hooker.Remove( eventName, identifier )
 	hooker.hookTable[eventName] = nil
 	return true
 end
+
+return hooker
