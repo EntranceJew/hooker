@@ -3,12 +3,16 @@
 	https://github.com/EntranceJew/hooker
 ]]
 
-hooker = {
+local hooker = {
 	hookTable = {},
 	hookIter = pairs
 	-- override this if you want globally deterministic hook iteration
 }
 -- this is where we store our hooks and the things that latch on to them like greedy little hellions
+
+local function pack(...)
+	return {n = select('#', ...), ...}
+end
 
 function hooker.Add( eventName, identifier, func )
 	--string, any, function
@@ -26,7 +30,7 @@ function hooker.Call( eventName, ... )
 	else
 		local results
 		for identifier,func in hooker.hookIter(hooker.hookTable[eventName]) do
-			results = table.pack(func(...))
+			results = pack(func(...))
 			results.n = nil
 			if #results>0 then
 				-- potential problems if relying on sandwiching a nil in the return results
@@ -56,3 +60,5 @@ function hooker.Remove( eventName, identifier )
 	hooker.hookTable[eventName] = nil
 	return true
 end
+
+return hooker

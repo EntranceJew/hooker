@@ -12,6 +12,8 @@ Usage
 -----
 You can call a hook anywhere in your code and create an event to hook.
 ```lua
+hooker = require "hooker"
+
 function computeDistance(a,b)
 	hooker.Call("preComputeDistance", a, b)
 	--[[
