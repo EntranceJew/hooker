@@ -41,7 +41,7 @@ function hooker.Call( eventName, ... )
 end
 
 function hooker.GetTable()
-	return hooker.hookTable()
+	return hooker.hookTable
 end
 
 function hooker.Remove( eventName, identifier )
